@@ -1,0 +1,13 @@
+package:tlang.display
+
+~java.awt
+import:Graphics
+import:Component
+import:Frame
+public class TWindow extends Frame {
+    hidden JComponent comp=new Component();
+    public TWindow(String title) {
+        super(title);
+    }
+    public void Draw(Graphics g);
+}
