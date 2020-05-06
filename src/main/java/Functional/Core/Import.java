@@ -16,6 +16,15 @@ public class Import extends Package {
         }
 
         @Override
+        public boolean equals(java.lang.Object obj) {
+            try {
+                return obj.getClass().getField("name").get(obj).equals(name);
+            } catch (Exception err) {
+            }
+            return this.name.equals(obj.toString());
+        }
+
+        @Override
         public String toString() {
             return super.toString() + "." + name;
         }

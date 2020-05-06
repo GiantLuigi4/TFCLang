@@ -3,7 +3,7 @@ package Functional.Core;
 import java.util.ArrayList;
 
 public class Function {
-    private String line;
+    public String line;
     public boolean Marker = false;
     public boolean GOTO = false;
     public Variable var = null;

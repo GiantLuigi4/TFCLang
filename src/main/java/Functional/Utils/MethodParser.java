@@ -1,6 +1,7 @@
 package Functional.Utils;
 
 import Functional.Core.Function;
+import Functional.Core.Protection;
 
 import java.util.ArrayList;
 
@@ -17,21 +18,64 @@ public class MethodParser {
     }
 
     private MethodParser simplify() {
+//        try {
         int i;
         ArrayList<String> newLines = new ArrayList<>();
         String parsingLine = "";
+        boolean readingClass = false;
         for (i = 0; i < lines.length; i++) {
-            if (!lines[i].contains(";")) {
-                parsingLine += lines[i];
+            if (!readingClass) {
+                for (Protection prot : Protection.values()) {
+                    if (lines[i].startsWith(prot.toString())) {
+                        readingClass = true;
+                    }
+                }
+                if (!readingClass) {
+                    newLines.add(lines[i]);
+                }
             } else {
-                for (String s : lines[i].split(";")) {
+                if (!lines[i].contains(";")) {
                     parsingLine += lines[i];
-                    newLines.add(parsingLine);
-                    parsingLine = "";
+                } else {
+                    if (lines[i].contains(";")) {
+                        for (String s : lines[i].split(";")) {
+                            parsingLine += lines[i];
+                            newLines.add(parsingLine);
+                            parsingLine = "";
+                        }
+                    }
                 }
             }
         }
-        String[] newLinesArray = (String[]) newLines.toArray();
+        lines = new String[newLines.size()];
+        String newString;
+        boolean hitText;
+        boolean hitComment;
+        for (int c = 0; c < newLines.size(); c++) {
+            hitText = false;
+            hitComment = false;
+            newString = "";
+            char prevChar = ' ';
+            for (char c2 : newLines.get(c).toCharArray()) {
+                if (c2 == '\\') {
+                    hitComment = !hitComment;
+                }
+                if (c2 != ' ' && !(hitComment || c2 == '\\')) {
+                    hitText = true;
+                }
+                if (hitText && !(hitComment || c2 == '\\')) {
+                    newString += c2;
+                }
+                if (c2 == prevChar && c2 == '\\' && !hitComment) {
+                    newString += c2;
+                }
+                prevChar = c2;
+            }
+            lines[c] = newString;
+//                lines[c]=newLines.get(c);
+        }
+//        Main.TLangDebug.print(Levels.Debug,lines.length);
+//        } catch (Exception err) {}
         return this;
     }
 
@@ -42,6 +86,6 @@ public class MethodParser {
     }
 
     public boolean hasNext() {
-        return lines.length < currentLine;
+        return currentLine < lines.length;
     }
 }
