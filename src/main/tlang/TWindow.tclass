@@ -1,1 +1,6 @@
+dependsOn:{
 
+}
+public class TWindow extends JFrame {
+
+}
