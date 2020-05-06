@@ -4,6 +4,7 @@ import Functional.Core.Variable;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class JavaClasses {
     public static java.lang.Class getClassByName(String name) {
@@ -19,30 +20,22 @@ public class JavaClasses {
         RuntimeException err1 = null;
         try {
             Method[] methods = clazz.getDeclaredMethods();
-            for (Method method1 : methods) {
-                allMethods.add(method1);
-            }
+            allMethods.addAll(Arrays.asList(methods));
         } catch (Exception err) {
         }
         try {
             Method[] methods = clazz.getMethods();
-            for (Method method1 : methods) {
-                allMethods.add(method1);
-            }
+            allMethods.addAll(Arrays.asList(methods));
         } catch (Exception err) {
         }
         try {
             Method[] methods = executingObject.getClass().getDeclaredMethods();
-            for (Method method1 : methods) {
-                allMethods.add(method1);
-            }
+            allMethods.addAll(Arrays.asList(methods));
         } catch (Exception err) {
         }
         try {
             Method[] methods = executingObject.getClass().getMethods();
-            for (Method method1 : methods) {
-                allMethods.add(method1);
-            }
+            allMethods.addAll(Arrays.asList(methods));
         } catch (Exception err) {
         }
         try {
@@ -56,40 +49,43 @@ public class JavaClasses {
         for (Method method1 : allMethods) {
             boolean canBeCorrect = true;
             ArrayList<Object> objects = new ArrayList<>();
-            if (method1.getName().equals(method)) {
-                int i = 0;
-                if (vars.length == method1.getParameterCount()) {
-                    for (Variable var : vars) {
+            try {
+                if (method1.getName().equals(method)) {
+                    int i = 0;
+                    if (vars.length == method1.getParameterCount()) {
+                        for (Variable var : vars) {
 //                        java.lang.Class clazz1= ((Class.JavaNativeClass)var.source).getJavaNative();
-                        try {
+                            try {
 //                            if (!method1.getParameterTypes()[i].isInstance(clazz1.newInstance())) {
 //                                objects.add(var.JavaValue);
 //                                canBeCorrect=true;
 //                            } else {
-                            objects.add(var.JavaValue);
+                                objects.add(var.JavaValue);
 //                            }
-                        } catch (Exception err) {
+                            } catch (Exception err) {
+                            }
+                            i++;
                         }
-                        i++;
+                    } else {
+                        canBeCorrect = false;
                     }
                 } else {
                     canBeCorrect = false;
                 }
-            } else {
-                canBeCorrect = false;
-            }
-            if (canBeCorrect) {
-                try {
-                    if (objects.size() == 0) {
-                        return method1.invoke(executingObject);
-                    }
-                    return invoke(method1, objects, executingObject);
-                } catch (RuntimeException err) {
-                    err1 = err;
+                if (canBeCorrect) {
+                    try {
+                        if (objects.size() == 0) {
+                            return method1.invoke(executingObject);
+                        }
+                        return invoke(method1, objects, executingObject);
+                    } catch (RuntimeException err) {
+                        err1 = err;
 //                    throw new RuntimeException(err);
-                } catch (Exception err) {
-                    err1 = new RuntimeException(err);
+                    } catch (Exception err) {
+                        err1 = new RuntimeException(err);
+                    }
                 }
+            } catch (Exception err) {
             }
         }
         throw err1;

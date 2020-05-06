@@ -1,10 +1,9 @@
 ~java.awt
 import:Graphics
-~javax.swing
-import:JComponent
-import:JFrame
-public class TWindow extends JFrame {
-    hidden JComponent comp=new JComponent();
+import:Component
+import:Frame
+public class TWindow extends Frame {
+    hidden JComponent comp=new Component();
     public TWindow(String title) {
         super(title);
     }
