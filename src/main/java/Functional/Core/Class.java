@@ -42,6 +42,7 @@ public class Class {
     }
 
     public Class(boolean isJavaNative, java.lang.Class javaClassIfPresent) {
+        this.pack = new Package(javaClassIfPresent.toString());
         this.isJavaNative = isJavaNative;
         this.javaClassIfPresent = javaClassIfPresent;
     }
@@ -188,6 +189,10 @@ public class Class {
         @Override
         public String getName() {
             return getJavaClass().toString();
+        }
+
+        public java.lang.Class getJavaNative() {
+            return javaClassIfPresent;
         }
     }
 }
