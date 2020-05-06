@@ -16,6 +16,7 @@ public class Class {
     protected String name;
     protected Package pack;
     protected Class[] inheritance;
+    protected String castedFrom = "";
 
     public Class(boolean isJavaNative, Method[] methods, Method[] staticMethods, java.lang.Class javaClassIfPresent, Variable[] vars, Variable[] staticVars, String name, Package pack) {
         this.isJavaNative = isJavaNative;
@@ -136,6 +137,10 @@ public class Class {
 
     public String getName() {
         return pack + name;
+    }
+
+    public String getUncastedClass() {
+        return castedFrom;
     }
 
     public static class JavaNativeClass extends Class {
