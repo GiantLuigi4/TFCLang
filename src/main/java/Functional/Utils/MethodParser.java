@@ -21,6 +21,7 @@ public class MethodParser {
 //        try {
         int i;
         ArrayList<String> newLines = new ArrayList<>();
+        ArrayList<String> newLines1 = new ArrayList<>();
         String parsingLine = "";
         boolean readingClass = false;
         for (i = 0; i < lines.length; i++) {
@@ -31,7 +32,7 @@ public class MethodParser {
                     }
                 }
                 if (!readingClass) {
-                    newLines.add(lines[i]);
+                    newLines1.add(lines[i]);
                 }
             } else {
                 if (!lines[i].contains(";")) {
@@ -40,13 +41,15 @@ public class MethodParser {
                     if (lines[i].contains(";")) {
                         for (String s : lines[i].split(";")) {
                             parsingLine += lines[i];
-                            newLines.add(parsingLine);
+                            newLines1.add(parsingLine);
                             parsingLine = "";
                         }
                     }
                 }
             }
         }
+        //TODO format to a single uniform format, which can be read by the method class.
+        newLines = newLines1;
         lines = new String[newLines.size()];
         String newString;
         boolean hitText;
@@ -72,7 +75,7 @@ public class MethodParser {
                 prevChar = c2;
             }
             lines[c] = newString;
-//                lines[c]=newLines.get(c);
+//                lines[c]=newLines1.get(c);
         }
 //        Main.TLangDebug.print(Levels.Debug,lines.length);
 //        } catch (Exception err) {}
