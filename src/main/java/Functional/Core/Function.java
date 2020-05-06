@@ -1,4 +1,4 @@
-package Functional;
+package Functional.Core;
 
 import java.util.ArrayList;
 

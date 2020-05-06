@@ -1,6 +1,6 @@
 package Functional.Utils;
 
-import Functional.Function;
+import Functional.Core.Function;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Functional;
+package Functional.Core;
 
 public class Object extends Class {
     @Override

@@ -1,4 +1,4 @@
-package Functional;
+package Functional.Core;
 
 public class Package {
     private String space;

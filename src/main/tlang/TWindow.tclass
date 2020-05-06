@@ -1,5 +1,12 @@
 ~java.awt
-import:jframe
+import:Graphics
+~javax.swing
+import:JComponent
+import:JFrame
 public class TWindow extends JFrame {
-
+    hidden JComponent comp=new JComponent();
+    public TWindow(String title) {
+        super(title);
+    }
+    public void Draw(Graphics g);
 }

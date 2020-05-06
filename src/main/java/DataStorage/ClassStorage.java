@@ -1,6 +1,6 @@
 package DataStorage;
 
-import Functional.Class;
+import Functional.Core.Class;
 
 import java.util.ArrayList;
 

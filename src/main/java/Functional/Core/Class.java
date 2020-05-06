@@ -1,7 +1,8 @@
-package Functional;
+package Functional.Core;
 
 import Errors.IllegalClassMergeException;
 import Functional.ClassContext.CustomClasses;
+import Functional.Debug.Log;
 import Functional.Utils.VariableFinder;
 
 import java.util.ArrayList;
@@ -47,11 +48,33 @@ public class Class {
     public Class() {
     }
 
+    public static Log getLogForClass(Class T) {
+        return Log.createLogger(new Package(T.name));
+    }
+
     public Variable getVariableByName(String name) {
         return VariableFinder.findVar(name, vars);
     }
 
     public Variable getStaticVariableByName(String name) {
+        return VariableFinder.findVar(name, staticVars);
+    }
+
+    public Variable setVariable(String name,Variable value) {
+        for (int i=0;i<vars.length;i++) {
+            if (vars[i].name.equals(name)) {
+                if (!(vars[i].varClass.equals(value.varClass))) {
+                    throw new RuntimeException(new ClassCastException("Could not cast:"+value.name+"to a:"+vars[i].varClass));
+                }
+                Variable old=vars[i];
+                vars[i]=value;
+                return old;
+            }
+        }
+        throw new RuntimeException(new NullPointerException("Could not find a variable matching the name:"+value));
+    }
+
+    public Variable setStaticVariable(String name) {
         return VariableFinder.findVar(name, staticVars);
     }
 

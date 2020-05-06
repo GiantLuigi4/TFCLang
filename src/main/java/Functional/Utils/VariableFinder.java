@@ -1,6 +1,6 @@
 package Functional.Utils;
 
-import Functional.Variable;
+import Functional.Core.Variable;
 
 public class VariableFinder {
     static int currentVar = 0;
