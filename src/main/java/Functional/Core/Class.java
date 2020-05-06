@@ -18,6 +18,7 @@ public class Class {
     protected Package pack;
     protected Class[] inheritance;
     protected String castedFrom = "";
+    protected ArrayList<Import> imports;
 
     public Class(boolean isJavaNative, Method[] methods, Method[] staticMethods, java.lang.Class javaClassIfPresent, Variable[] vars, Variable[] staticVars, String name, Package pack) {
         this.isJavaNative = isJavaNative;
@@ -43,6 +44,14 @@ public class Class {
     public Class(boolean isJavaNative, java.lang.Class javaClassIfPresent) {
         this.isJavaNative = isJavaNative;
         this.javaClassIfPresent = javaClassIfPresent;
+    }
+
+    public void setImports(ArrayList<Import> imports1) {
+        imports = imports1;
+    }
+
+    public void addImport(Import import1) {
+        imports.add(import1);
     }
 
     public Class() {
