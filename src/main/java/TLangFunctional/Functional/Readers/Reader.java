@@ -1,4 +1,4 @@
-package TLangFunctional.JarReader;
+package TLangFunctional.Functional.Readers;
 
 import Editor.Main;
 import TLangFunctional.Functional.Debug.Log.LogLevel;

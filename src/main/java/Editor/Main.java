@@ -3,8 +3,8 @@ package Editor;
 import TLangFunctional.Functional.Core.Class.Package;
 import TLangFunctional.Functional.Debug.Log.Log;
 import TLangFunctional.Functional.Debug.Log.LogLevel;
+import TLangFunctional.Functional.Readers.Reader;
 import TLangFunctional.Functional.Utils.FormattedFile;
-import TLangFunctional.JarReader.Reader;
 
 import java.awt.*;
 import java.io.File;
