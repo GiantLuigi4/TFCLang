@@ -16,7 +16,7 @@ public class Pixel3D extends Pixel {
     }
     
     public static Pixel3D getPixelFromOffset(Pixel3D source, Pixel3D cam) {
-        float X = source.x - cam.x;
+        float X = cam.x - source.x;
         float Y = source.y - cam.y;
         float Z = source.z - cam.z;
         float x = (float) ((Math.cos(0) * X) - (Math.sin(0) * Y));
@@ -29,9 +29,11 @@ public class Pixel3D extends Pixel {
         if (("" + y).startsWith("-")) {
             negativeY = -1;
         }
-        float offset = (5 / (source.z - cam.z));
+        float offset = (5 / (Z));
         x *= offset;
         y *= offset;
+//        x += offset*negativeX;
+        y += offset * negativeY;
         return new Pixel3D(x, y, offset, source.r, source.g, source.b, source.a);
     }
     
@@ -46,8 +48,10 @@ public class Pixel3D extends Pixel {
         this.x -= origin.x;
         this.y -= origin.y;
         this.z -= origin.z;
-        this.x = (float) (Math.cos(x) * this.x) + origin.x;
-        this.z = (float) (Math.sin(x) * this.z) + origin.z;
+        float rot = (float) Math.atan2(this.x, this.z) + x;
+        float offset = (float) Math.sqrt(this.x * this.x + this.z * this.z);
+        this.x = (float) (Math.cos(rot) * offset) + origin.x;
+        this.z = (float) (Math.sin(rot) * offset) + origin.z;
         return this;
     }
 }
