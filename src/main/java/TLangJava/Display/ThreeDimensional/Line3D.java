@@ -6,7 +6,12 @@ import java.util.ArrayList;
 public class Line3D {
     public Pixel3D pos1;
     public Pixel3D pos2;
-
+    
+    public Line3D(Pixel3D pos1, Pixel3D pos2) {
+        this.pos1 = pos1;
+        this.pos2 = pos2;
+    }
+    
     public static Pixel3D averagePixels(Pixel3D posa, Pixel3D posb) {
         float newX = (posa.x + posb.x) / 2;
         float newY = (posa.y + posb.y) / 2;
@@ -16,6 +21,13 @@ public class Line3D {
         int newB = (posa.b + posb.b) / 2;
         int newA = (posa.a + posb.a) / 2;
         return new Pixel3D(newX, newY, newZ, newR, newG, newB, newA);
+    }
+    
+    public float getLength() {
+        float xDist = Math.abs(pos1.x - pos2.x);
+        float yDist = Math.abs(pos1.y - pos2.y);
+        float zDist = Math.abs(pos1.z - pos2.z);
+        return xDist + yDist + zDist;
     }
 
     public static Pixel3D lerp(float Dist, Pixel3D start, Pixel3D end) {

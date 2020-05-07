@@ -139,7 +139,7 @@ public class JavaClasses {
             }
         } catch (Exception err) {
             try {
-                return method1.invoke(executingObject, null);
+                return method1.invoke(executingObject, (Object) null);
             } catch (Exception err2) {
                 err1 = new RuntimeException(err);
             }
