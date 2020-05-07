@@ -32,7 +32,7 @@ public class test extends Component {
                 new Variable(Float.class, "opacity", false, 1)
         };
         Variable[] vars6 = new Variable[]{
-                new Variable(Main.class, "component", false, new Main())
+                new Variable(test.class, "component", false, new test())
         };
         JavaClasses.executeJavaFunction(JavaClasses.getClassByName("java.awt.JFrame"), "setSize", vars, frame);
         JavaClasses.executeJavaFunction(JavaClasses.getClassByName("java.awt.JFrame"), "setUndecorated", vars2, frame);

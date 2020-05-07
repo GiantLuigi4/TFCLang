@@ -4,7 +4,7 @@ package:tlang.display
 import:Graphics
 import:Component
 import:Frame
-class TWindow : Frame {
+public class TWindow : Frame {
     hidden readOnly Component comp=new Component();
     constructor TWindow(String title) {
         super(title);

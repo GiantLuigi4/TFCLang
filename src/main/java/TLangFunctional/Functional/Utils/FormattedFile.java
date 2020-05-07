@@ -29,6 +29,10 @@ public class FormattedFile {
                         newLines1.add(lines[i]);
                     }
                 }
+                if (lines[i].startsWith("class")) {
+                    readingClass = true;
+                    newLines1.add(lines[i]);
+                }
                 if (!readingClass) {
                     newLines1.add(lines[i]);
                 }
