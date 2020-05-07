@@ -54,16 +54,7 @@ public class JavaClasses {
                     int i = 0;
                     if (vars.length == method1.getParameterCount()) {
                         for (Variable var : vars) {
-//                        java.lang.Class clazz1= ((Class.JavaNativeClass)var.source).getJavaNative();
-                            try {
-//                            if (!method1.getParameterTypes()[i].isInstance(clazz1.newInstance())) {
-//                                objects.add(var.JavaValue);
-//                                canBeCorrect=true;
-//                            } else {
-                                objects.add(var.JavaValue);
-//                            }
-                            } catch (Exception err) {
-                            }
+                            objects.add(var.JavaValue);
                             i++;
                         }
                     } else {
@@ -80,7 +71,6 @@ public class JavaClasses {
                         return invoke(method1, objects, executingObject);
                     } catch (RuntimeException err) {
                         err1 = err;
-//                    throw new RuntimeException(err);
                     } catch (Exception err) {
                         err1 = new RuntimeException(err);
                     }
@@ -89,7 +79,6 @@ public class JavaClasses {
             }
         }
         throw err1;
-//        throw new RuntimeException(new NullPointerException());
     }
 
     public static Object invoke(Method method1, ArrayList<Object> objects, Object executingObject) {

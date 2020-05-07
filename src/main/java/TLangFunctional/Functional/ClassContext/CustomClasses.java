@@ -2,6 +2,7 @@ package TLangFunctional.Functional.ClassContext;
 
 import TLangFunctional.DataStorage.ClassStorage;
 import TLangFunctional.Functional.Core.Class.Class;
+import TLangFunctional.Functional.Core.Class.Variable;
 
 import java.util.ArrayList;
 
@@ -61,5 +62,9 @@ public class CustomClasses {
 
     private static boolean hasNext() {
         return currentIndex < classesReading.length;
+    }
+
+    public static Class executeMethod(Class clazz, Variable var, Variable[] variables) {
+        return null;
     }
 }

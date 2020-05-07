@@ -4,20 +4,18 @@ import TLangFunctional.Functional.Core.Generic.Protection;
 
 import java.util.ArrayList;
 
-public class FileFormator {
-    int currentLine = 0;
+public class FormattedFile {
     private String[] lines;
 
-    private FileFormator(String[] lines) {
+    private FormattedFile(String[] lines) {
         this.lines = lines;
     }
 
-    public static FileFormator createMethodParser(String[] lines) {
-        return new FileFormator(lines).simplify();
+    public static FormattedFile createFormatter(String[] lines) {
+        return new FormattedFile(lines).simplify();
     }
 
-    private FileFormator simplify() {
-//        try {
+    private FormattedFile simplify() {
         int i;
         ArrayList<String> newLines = new ArrayList<>();
         ArrayList<String> newLines1 = new ArrayList<>();
@@ -28,6 +26,7 @@ public class FileFormator {
                 for (Protection prot : Protection.values()) {
                     if (lines[i].startsWith(prot.toString())) {
                         readingClass = true;
+                        newLines1.add(lines[i]);
                     }
                 }
                 if (!readingClass) {
@@ -39,7 +38,7 @@ public class FileFormator {
                 } else {
                     if (lines[i].contains(";")) {
                         for (String s : lines[i].split(";")) {
-                            parsingLine += lines[i];
+                            parsingLine += s;
                             newLines1.add(parsingLine);
                             parsingLine = "";
                         }
@@ -47,8 +46,23 @@ public class FileFormator {
                 }
             }
         }
-        //TODO format to a single uniform format, which can be read by the method class.
-        newLines = newLines1;
+        newLines1.add(parsingLine);
+        for (String line : newLines1) {
+            if (line.contains("{") || line.contains("}")) {
+                String newLine = "";
+                for (char c : line.toCharArray()) {
+                    if (c != '{' && c != '}') {
+                        newLine += c;
+                    } else {
+                        newLine += c;
+                        newLines.add(newLine);
+                        newLine = "";
+                    }
+                }
+            } else {
+                newLines.add(line);
+            }
+        }
         lines = new String[newLines.size()];
         String newString;
         boolean hitText;
@@ -76,5 +90,22 @@ public class FileFormator {
             lines[c] = newString;
         }
         return this;
+    }
+
+    @Override
+    public String toString() {
+        String strng = "";
+        for (String string : lines) {
+            strng += string + "\n";
+        }
+        return strng;
+    }
+
+    public String toSingleLine() {
+        String strng = "";
+        for (String string : lines) {
+            strng += string;
+        }
+        return strng;
     }
 }
