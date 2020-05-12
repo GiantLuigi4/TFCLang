@@ -38,10 +38,9 @@ public class ThreeDimensionalImage {
 	
 	public ArrayList<Pixel3D> getPixels() {
 		ArrayList<Pixel3D> returnVal = new ArrayList<>();
-		for (float f : ZPoses) {
-			for (Pixel3D pxl : pixels.get(f).pixels) {
-				returnVal.add(pxl);
-			}
+		for (int k = ZPoses.length - 1; k >= 0; k--) {
+			float f = ZPoses[k];
+			returnVal.addAll(pixels.get(f).pixels);
 		}
 		return returnVal;
 	}

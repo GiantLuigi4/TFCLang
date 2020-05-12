@@ -26,7 +26,12 @@ public class Graphics3D {
     }
     
     public void addLine(Line3D line) {
-        pixels.addAll(line.getAllPixels(0.1f / line.getLength()));
+        pixels.addAll(line.getAllPixels(0.25f / line.getLength()));
+    }
+    
+    public void addRect(Rect3D rect) {
+        rect.prep();
+        pixels.addAll(rect.image.getPixels());
     }
     
     public void Draw() {
@@ -35,9 +40,10 @@ public class Graphics3D {
     
     private void Draw(Graphics g) {
 //        Main.TLangDebug.print(LogLevel.WARN,"pixels"+pixels.size());
-        
+    
+        ((Graphics2D) g).setRenderingHints(hints);
         for (int i = 0; i < pixels.size(); i++) {
-            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i).rotate(cam, rotationX), cam));
+            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i).rotateX(cam, rotationX), cam));
         }
         ArrayList<Pixel3D> pixels = new ThreeDimensionalImage(this.pixels).getPixels();
         try {
@@ -370,13 +376,29 @@ public class Graphics3D {
         g2d.setRenderingHints(hints);
         try {
             Pixel3D drawing = Pixel3D.getPixelFromOffset(pixels.get(i), cam);
-            if (drawing.z > 0) {
+            if (drawing.z > 3) {
                 g.setColor(new Color(drawing.r, drawing.g, drawing.b, drawing.a));
                 AffineTransform oldTransform = g2d.getTransform();
                 g2d.translate(offX, offY);
-                g2d.translate((drawing.x * scaleX), (drawing.y * scaleY));
+//                float y=rotationX;
+//                float negativeY = 1;
+//                if (("" + y).startsWith("-")) {
+//                    negativeY = -1;
+//                }
+                g2d.translate((drawing.x * scaleX), ((-drawing.y) * scaleY));
                 g2d.translate(-(width / 2), -(height / 2));
-                g.fillRect(0, 0, width, height);
+                try {
+                    Pixel3D next = Pixel3D.getPixelFromOffset(pixels.get(i + 1), cam);
+                    if (new Line3D(drawing, next).getLength() <= 2) {
+                        ((Graphics2D) g).setStroke(new BasicStroke(width * 1.3f));
+                        g.drawLine(0, 0, (int) Math.ceil(next.x - drawing.x), (int) Math.ceil(next.y - drawing.y));
+                        g.fillRect(0, -2, 3 * scaleX, 3 * scaleY);
+                    } else {
+                        g.fillRect(0, 0, width, height);
+                    }
+                } catch (Exception err) {
+                    g.fillRect(0, 0, width, height);
+                }
                 g2d.setTransform(oldTransform);
             }
             return 1;

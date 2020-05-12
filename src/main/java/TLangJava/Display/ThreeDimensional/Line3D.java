@@ -1,5 +1,6 @@
 package TLangJava.Display.ThreeDimensional;
 
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 //TODO
@@ -47,5 +48,9 @@ public class Line3D {
             pxls.add(lerp(i, pos1, pos2));
         }
         return pxls;
+    }
+    
+    public Line2D as2D() {
+        return null;
     }
 }

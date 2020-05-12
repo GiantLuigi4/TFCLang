@@ -33,7 +33,7 @@ public class Pixel3D extends Pixel {
         x *= offset;
         y *= offset;
 //        x += offset*negativeX;
-        y += offset * negativeY;
+		y += offset;
         return new Pixel3D(x, y, offset, source.r, source.g, source.b, source.a);
     }
     
@@ -43,15 +43,28 @@ public class Pixel3D extends Pixel {
         float zDist = Math.abs(pos1.z - pos2.z);
         return (xDist * xDist) + (yDist * yDist) + (zDist * zDist);
     }
-    
-    public Pixel3D rotate(Pixel3D origin, float x) {
-        this.x -= origin.x;
-        this.y -= origin.y;
-        this.z -= origin.z;
-        float rot = (float) Math.atan2(this.x, this.z) + x;
-        float offset = (float) Math.sqrt(this.x * this.x + this.z * this.z);
-        this.x = (float) (Math.cos(rot) * offset) + origin.x;
-        this.z = (float) (Math.sin(rot) * offset) + origin.z;
-        return this;
-    }
+	
+	public Pixel3D rotateX(Pixel3D origin, float x) {
+		this.x -= origin.x;
+		this.y -= origin.y;
+		this.z -= origin.z;
+		float rot = (float) Math.atan2(this.x, this.z) + x;
+		float offset = (float) Math.sqrt(this.x * this.x + this.z * this.z);
+		this.x = (float) (Math.cos(rot) * offset) + origin.x;
+		this.y += origin.y;
+		this.z = (float) (Math.sin(rot) * offset) + origin.z;
+		return this;
+	}
+	
+	public Pixel3D rotateY(Pixel3D origin, float y) {
+		this.x -= origin.x;
+		this.y -= origin.y;
+		this.z -= origin.z;
+		float rot = (float) Math.atan2(this.y, this.x) + y;
+		float offset = (float) Math.sqrt(this.y * this.y + this.x * this.x);
+		this.x = (float) (Math.cos(rot) * offset) + origin.x;
+		this.y = (float) (Math.sin(rot) * offset) + origin.y;
+		this.z += origin.z;
+		return this;
+	}
 }
