@@ -22,7 +22,7 @@ public class Rect3D {
 				float progress = (float) i / (float) lne1.size();
 				Line3D line = new Line3D(lne1.get((int) (progress * lne1.size())), lne2.get((int) (progress * lne2.size())));
 				pixels.addAll(line.getAllPixels(0.1f / line.getLength()));
-			} catch (Exception err) {
+			} catch (Exception ignored) {
 			}
 		}
 		pixels.addAll(lne1);

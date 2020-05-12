@@ -67,4 +67,11 @@ public class Pixel3D extends Pixel {
 		this.z += origin.z;
 		return this;
 	}
+	
+	public Pixel3D offset(Pixel3D off) {
+		this.x += off.x;
+		this.y += off.y;
+		this.z += off.z;
+		return this;
+	}
 }

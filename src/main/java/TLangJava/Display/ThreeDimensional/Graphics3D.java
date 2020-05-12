@@ -42,8 +42,9 @@ public class Graphics3D {
 //        Main.TLangDebug.print(LogLevel.WARN,"pixels"+pixels.size());
     
         ((Graphics2D) g).setRenderingHints(hints);
-        for (int i = 0; i < pixels.size(); i++) {
-            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i).rotateX(cam, rotationX), cam));
+        for (int i = 0; i < pixels.size(); i += 1) {
+            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i).rotateX(cam, rotationX), cam).offset(cam));
+//            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i), cam));
         }
         ArrayList<Pixel3D> pixels = new ThreeDimensionalImage(this.pixels).getPixels();
         try {

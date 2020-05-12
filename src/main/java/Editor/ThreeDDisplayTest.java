@@ -106,8 +106,8 @@ public class ThreeDDisplayTest extends JComponent {
 		cx += 0;
 		G3D.translate(frame.getWidth() / 8, frame.getHeight() / 4);
 		G3D.setSize(4, 4);
-//		G3D.setCam((float) (Math.cos(cx) * 5), 0, 0);
-		G3D.setCam(0, 0, 0);
+		G3D.setCam((float) (Math.cos(cx) * 50), 0, 0);
+//		G3D.setCam(0, 0, 0);
 //		G3D.rotateX(90);
 //		G3D.rotateX((float) Math.cos(z) + 180);
 		G3D.rotateX(z);
