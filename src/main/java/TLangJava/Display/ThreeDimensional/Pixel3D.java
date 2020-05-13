@@ -1,6 +1,9 @@
 package TLangJava.Display.ThreeDimensional;
 
 import TLangJava.Display.TwoDimensional.Pixel;
+import TLangJava.Math.Trig;
+
+import java.awt.*;
 
 public class Pixel3D extends Pixel {
     public float z;
@@ -14,13 +17,16 @@ public class Pixel3D extends Pixel {
         super(x, y, r, g, b, a);
         this.z = z;
     }
+	
+	static double cos0 = Math.cos(0);
+	static double sin0 = Math.sin(0);
     
     public static Pixel3D getPixelFromOffset(Pixel3D source, Pixel3D cam) {
         float X = cam.x - source.x;
         float Y = source.y - cam.y;
         float Z = source.z - cam.z;
-        float x = (float) ((Math.cos(0) * X) - (Math.sin(0) * Y));
-        float y = (float) ((Math.cos(0) * ((Math.cos(0) * Y) + (Math.sin(0) * X))) + (Z * Math.sin(0)));
+		float x = (float) ((cos0 * X) - (sin0 * Y));
+		float y = (float) ((cos0 * ((cos0 * Y) + (sin0 * X))) + (Z * sin0));
         float negativeX = 1;
         if (("" + x).startsWith("-")) {
             negativeX = -1;
@@ -44,15 +50,23 @@ public class Pixel3D extends Pixel {
         return (xDist * xDist) + (yDist * yDist) + (zDist * zDist);
     }
 	
+	public Pixel3D colorize(Color col) {
+		this.r = col.getRed();
+		this.g = col.getGreen();
+		this.b = col.getBlue();
+		this.a = col.getAlpha();
+		return this;
+	}
+	
 	public Pixel3D rotateX(Pixel3D origin, float x) {
 		this.x -= origin.x;
 		this.y -= origin.y;
 		this.z -= origin.z;
 		float rot = (float) Math.atan2(this.x, this.z) + x;
 		float offset = (float) Math.sqrt(this.x * this.x + this.z * this.z);
-		this.x = (float) (Math.cos(rot) * offset) + origin.x;
+		this.x = (float) (Trig.cos(rot, false) * offset) + origin.x;
 		this.y += origin.y;
-		this.z = (float) (Math.sin(rot) * offset) + origin.z;
+		this.z = (float) (Trig.sin(rot, false) * offset) + origin.z;
 		return this;
 	}
 	
@@ -60,11 +74,11 @@ public class Pixel3D extends Pixel {
 		this.x -= origin.x;
 		this.y -= origin.y;
 		this.z -= origin.z;
-		float rot = (float) Math.atan2(this.y, this.x) + y;
-		float offset = (float) Math.sqrt(this.y * this.y + this.x * this.x);
-		this.x = (float) (Math.cos(rot) * offset) + origin.x;
-		this.y = (float) (Math.sin(rot) * offset) + origin.y;
-		this.z += origin.z;
+		float rot = (float) Math.atan2(this.y, this.z) + y;
+		float offset = (float) Math.sqrt(this.y * this.y + this.z * this.z);
+		this.x += origin.x;
+		this.y = (float) (Trig.sin(rot, false) * offset) + origin.y;
+		this.z = (float) (Trig.cos(rot, false) * offset) + origin.z;
 		return this;
 	}
 	

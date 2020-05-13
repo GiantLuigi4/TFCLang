@@ -33,7 +33,6 @@ public class ThreeDimensionalImage {
 			ZPoses[i] = zPoses.get(i);
 		}
 		Arrays.sort(ZPoses);
-		Arrays.parallelSort(ZPoses);
 	}
 	
 	public ArrayList<Pixel3D> getPixels() {
@@ -42,6 +41,21 @@ public class ThreeDimensionalImage {
 			float f = ZPoses[k];
 			returnVal.addAll(pixels.get(f).pixels);
 		}
+//		Object[] keys=pixels.keySet().toArray();
+//		for (int i=0;i<pixels.keySet().size();i++) {
+//			for (int b=0;b<pixels.keySet().size();b++) {
+//				if ((float)keys[i]<=(float)keys[b]) {
+//					float f1=(float)keys[i];
+//					float f2=(float)keys[b];
+//					keys[i]=f2;
+//					keys[b]=f1;
+////					Main.TLangDebug.print(LogLevel.WARN,""+f1+","+f2);
+//				}
+//			}
+//		}
+//		for (Object f:keys) {
+//			returnVal.addAll(pixels.get(f).pixels);
+//		}
 		return returnVal;
 	}
 }
