@@ -5,31 +5,32 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Graphics3D {
-    private ArrayList<Pixel3D> pixels = new ArrayList<>();
-    private static BufferedImage image;
-    private Graphics thisGraphics;
     private int width = 1;
     private int height = 1;
-    private int scaleX = 4;
-    private int scaleY = 4;
-    private ArrayList<Rect3D> rectangles = new ArrayList<>();
+    private int scaleX = 1;
+    private int scaleY = 1;
     private float offX = 0;
-    private RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-    private float rotationX = 0;
-    private Pixel3D cam = new Pixel3D(0, 0, 0, 0, 0, 0, 0);
     private float offY = 0;
+    private float rotationX = 0;
+    private float rotationY = 0;
+    private Graphics thisGraphics;
+    private static BufferedImage image;
+    private ArrayList<Pixel3D> pixels = new ArrayList<>();
+    private ArrayList<Rect3D> rectangles = new ArrayList<>();
+    private Pixel3D cam = new Pixel3D(0, 0, 0, 1, 1, 1, 1);
+    private RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     
     public void addPixel(Pixel3D pxl) {
         pixels.add(pxl);
     }
     
-    public void addLine(Line3D line) {
-        pixels.addAll(line.getAllPixels(0.25f / line.getLength()));
-    }
-    
     public Graphics3D(Graphics g, int screenWidth, int screenHeight) {
         thisGraphics = g;
-        image = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(screenWidth / 1, screenHeight / 1, BufferedImage.TYPE_INT_ARGB);
+    }
+    
+    public void addLine(Line3D line) {
+        pixels.addAll(line.getAllPixels(0.1f / line.getLength()));
     }
     
     public void Draw() {
@@ -77,29 +78,50 @@ public class Graphics3D {
 //        Main.TLangDebug.print(LogLevel.WARN,"pixels"+pixels.size());
         
         ((Graphics2D) g).setRenderingHints(hints);
-        for (int i = 0; i < pixels.size(); i += 16) {
-            pixels.set(i, pixels.get(i).rotateX(cam, rotationX)).offset(cam);
+        for (int i = 0; i < pixels.size(); i += 1) {
+            pixels.set(i, pixels.get(i).rotateX(cam, rotationX));
 //            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i), cam));
         }
         for (Rect3D rect : rectangles) {
             rect.rotateX(cam, rotationX);
-//            rect.setupTransformation(cam,0);
-            rect.prep();
-            for (Pixel3D pxl : rect.pixels) {
-                pixels.add(pxl.offset(cam));
-            }
+            rect.addToList(pixels);
+//            pixels.addAll(rect.pixels);
         }
         ArrayList<Pixel3D> pixels = new ThreeDimensionalImage(this.pixels).getPixels();
         try {
             for (int i = 0; i < pixels.size(); i += draw(g, i)) ;
         } catch (Exception ignored) {
         }
+//        ArrayList<Pixel3D> pixelsRounded=new ArrayList<>();
+//        for (int i=0;i<pixels.size();i++) {
+//            pixelsRounded.add(pixels.get(i).round());
+//        }
+
+//        int quality=4;
+//        for (int x = 1; x< image.getWidth(); x+=quality) {
+//            float xrot=((float)(x)/(float)image.getWidth())-0.5f;
+//            for (int y = 1; y< image.getHeight(); y+=quality) {
+//                float yrot=((float)(y)/(float)image.getHeight())-0.5f;
+//                Pixel3D pxl=(RayTrace(
+//                        new Pixel3D(yrot*-2,xrot*-2,-1,0,0,0,0),
+//                        new Pixel3D(yrot*-16,xrot*-16,5,0,0,0,0),
+//                        pixels,
+//                        pixelsRounded
+//                ));
+//                try {
+////                    Main.TLangDebug.print(LogLevel.WARN,""+x+","+y+","+pxl);
+//                    Color col = new Color((int) (pxl.r * (cam.r / 255f)), (int) (pxl.g * (cam.g / 255f)), (int) (pxl.b * (cam.b / 255f)), pxl.a);
+//                    image.setRGB(x+0,y+0,col.getRGB());
+//                } catch (Exception err) {}
+//            }
+//        }
+        
 //        ((Graphics2D) g).translate(offX,offY);
 //        ((Graphics2D) g).translate((-image.getWidth()/2)*scaleX,(-image.getHeight()/2)*scaleY);
 //        ((Graphics2D) g).scale(scaleX,scaleY);
 //        ((Graphics2D) g).setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON));
 //        g.drawImage(image.getScaledInstance(image.getWidth()*scaleX,image.getHeight()*scaleY,BufferedImage.SCALE_AREA_AVERAGING),0,0,null);
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(image, 0, 0, image.getWidth() * 1, image.getHeight() * 1, null);
     }
     
     public void setRenderingHints(RenderingHints hints) {
@@ -128,9 +150,25 @@ public class Graphics3D {
         g2d.setRenderingHints(hints);
         try {
 //            Pixel3D drawing=pixels.get(i);
-            Pixel3D drawing = Pixel3D.getPixelFromOffset(pixels.get(i).rotateY(cam, 0), cam);
+//            Pixel3D drawing=pixels.get(i).rotateY(new Pixel3D(0,0,0,0,0,0,0),0);
+//            drawing=new Pixel3D((int)(drawing.x*4)/4f,(int)(drawing.y*4)/4f,(int)drawing.z,drawing.r,drawing.g,drawing.b,drawing.a);
+            Pixel3D drawing = Pixel3D.getPixelFromOffset(pixels.get(i), cam);
             if (drawing.z > 0) {
                 drawing = Pixel3D.getPixelFromOffset(drawing, cam);
+//                for (int x=0;x<=image.getWidth();x++) {
+//                    float xrot=((float)x/(float)image.getWidth())-0.5f;
+//                    for (int y=0;y<=image.getWidth();y++) {
+//                        float yrot=((float)y/(float)image.getHeight())-0.5f;
+//                        if (RayTrace(
+//                                new Pixel3D(0,0,0,0,0,0,0),
+//                                new Pixel3D(xrot,yrot,60,0,0,0,0),
+//                                drawing
+//                        )) {
+//                            Color col = new Color((int) (drawing.r * (cam.r / 255f)), (int) (drawing.g * (cam.g / 255f)), (int) (drawing.b * (cam.b / 255f)), drawing.a);
+//                            image.setRGB(x,y,col.getRGB());
+//                        }
+//                    }
+//                }
 //                g.setColor(new Color(drawing.r, drawing.g, drawing.b, drawing.a));
 //                AffineTransform oldTransform = g2d.getTransform();
 //                g2d.translate(offX, offY);
@@ -155,10 +193,18 @@ public class Graphics3D {
 //                    g.fillRect(0, 0, width, height);
 //                }
 //                g2d.setTransform(oldTransform);
+    
+                /**currentKnownWorking*/
                 Color col = new Color((int) (drawing.r * (cam.r / 255f)), (int) (drawing.g * (cam.g / 255f)), (int) (drawing.b * (cam.b / 255f)), drawing.a);
                 Graphics img = image.getGraphics();
                 img.setColor(col);
-                img.fillRect((int) (drawing.x * scaleX + offX), (int) (-(drawing.y * scaleY) + offY), scaleX * width, scaleY * height);
+                img.fillRect(
+                        (int) (drawing.x * scaleX + offX),
+                        (int) (-(drawing.y * scaleY) + offY),
+                        (scaleX * width),
+                        (scaleY * height));
+
+
 //                for (int aflackX=0;aflackX<(scaleX*width);aflackX+=1) {
 //                    for (int aflackY=0;aflackY<(scaleY*height);aflackY+=1) {
 //                        try {
@@ -177,6 +223,24 @@ public class Graphics3D {
         } catch (ArithmeticException err) {
             return 1;
         }
+    }
+    
+    public Pixel3D RayTrace(Pixel3D start, Pixel3D end, ArrayList<Pixel3D> target, ArrayList<Pixel3D> targetRounded) {
+        Line3D tracer = new Line3D(start, end);
+        for (Pixel3D pxl : tracer.getAllPixels(1)) {
+            if (pxl.z >= 1) {
+                if (targetRounded.contains(pxl.round())) {
+//                    if (target.get(targetRounded.indexOf(pxl.round())).x!=cam.x) {
+//                        if (target.get(targetRounded.indexOf(pxl.round())).y!=cam.y) {
+//                            if (target.get(targetRounded.indexOf(pxl.round())).z!=cam.z) {
+                    return target.get(targetRounded.indexOf(pxl.round()));
+//                            }
+//                        }
+//                    }
+                }
+            }
+        }
+        return new Pixel3D(0, 0, 0, 0, 0, 0, 0);
     }
 
 //    public Pixel3D RayTrace(int dist, Pixel3D target) {

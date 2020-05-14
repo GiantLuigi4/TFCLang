@@ -29,7 +29,7 @@ public class Rect3D {
 		);
 	}
 	
-	public void prep() {
+	public void addToList(ArrayList<Pixel3D> list) {
 		pixels = new ArrayList<>();
 		int i = 0;
 		ArrayList<Pixel3D> lne1 = line1.getAllPixels(0.1f / line1.getLength());
@@ -38,7 +38,7 @@ public class Rect3D {
 			try {
 				float progress = (float) i / (float) lne1.size();
 				Line3D line = new Line3D(lne1.get((int) (progress * lne1.size())), lne2.get((int) (progress * lne2.size())));
-				pixels.addAll(line.getAllPixels(0.1f / line.getLength()));
+				list.addAll(line.getAllPixels(0.1f / line.getLength()));
 			} catch (Exception ignored) {
 			}
 		}

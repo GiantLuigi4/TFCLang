@@ -21,7 +21,7 @@ public class TexturedRect3D extends Rect3D {
 	}
 	
 	@Override
-	public void prep() {
+	public void addToList(ArrayList<Pixel3D> list) {
 		pixels = new ArrayList<>();
 		int i = 0;
 		ArrayList<Pixel3D> lne1 = line1.getAllPixels(0.2f / line1.getLength());
@@ -37,7 +37,7 @@ public class TexturedRect3D extends Rect3D {
 						float progressY = (float) af / (float) LinePixels.size();
 						float texY = ((progressY) * texHeight) + v;
 						Color col = new Color(bimig.getRGB((int) texX, (int) texY));
-						pixels.add(LinePixels.get(af).colorize(col));
+						list.add(LinePixels.get(af).colorize(col));
 					} catch (Exception err) {
 					}
 				}

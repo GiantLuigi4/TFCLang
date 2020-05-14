@@ -18,6 +18,13 @@ public class Pixel3D extends Pixel {
         this.z = z;
     }
 	
+	public Pixel3D round() {
+		x = (int) x;
+		y = (int) y;
+		z = (int) z;
+		return this;
+	}
+	
 	static double cos0 = Math.cos(0);
 	static double sin0 = Math.sin(0);
     
@@ -87,5 +94,34 @@ public class Pixel3D extends Pixel {
 		this.y += off.y;
 		this.z += off.z;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Pixel3D{" +
+				"x=" + x +
+				", y=" + y +
+				", z=" + z +
+				", r=" + r +
+				", g=" + g +
+				", b=" + b +
+				", a=" + a +
+				'}';
+	}
+	
+	public String xyz() {
+		return "Pixel3D{" +
+				"x=" + x +
+				", y=" + y +
+				", z=" + z +
+				'}';
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Pixel3D) {
+			return ((Pixel3D) obj).xyz().equals(this.xyz());
+		}
+		return super.equals(obj);
 	}
 }

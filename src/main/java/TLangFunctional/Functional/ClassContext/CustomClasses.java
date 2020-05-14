@@ -63,8 +63,8 @@ public class CustomClasses {
     private static boolean hasNext() {
         return currentIndex < classesReading.length;
     }
-
-    public static Class executeMethod(Class clazz, Variable var, Variable[] variables) {
+	
+	public static Variable executeMethod(Class clazz, Variable executor, Variable[] variables, String methodName) {
         return null;
     }
 }

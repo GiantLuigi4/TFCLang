@@ -132,7 +132,7 @@ public class ThreeDDisplayTest extends JComponent {
 //		G3D.rotateX((float)Math.toRadians(-90));
 //		G3D.rotateX((float) Math.cos(z) + 180);
 //		G3D.rotateX((float)Math.toRadians(z));
-		G3D.rotateX((float) (Math.sin(z / 100)));
+		G3D.rotateX((float) (Trig.sin(z / 100, true)));
 		G3D.setLineSize(1, 1);
 //		G3D.setRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED));
 		G3D.Draw();

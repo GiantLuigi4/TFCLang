@@ -1,5 +1,7 @@
 package TLangJava.Display.ThreeDimensional;
 
+import TLangJava.Math.Smoothing;
+
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -32,13 +34,20 @@ public class Line3D {
     }
 
     public static Pixel3D lerp(float Dist, Pixel3D start, Pixel3D end) {
-        float newX = ((start.x * (1 - Dist)) + (end.x * Dist));
-        float newY = ((start.y * (1 - Dist)) + (end.y * Dist));
-        float newZ = ((start.z * (1 - Dist)) + (end.z * Dist));
-        int newR = (int) ((start.r * (1 - Dist)) + (end.r * Dist));
-        int newG = (int) ((start.g * (1 - Dist)) + (end.g * Dist));
-        int newB = (int) ((start.b * (1 - Dist)) + (end.b * Dist));
-        int newA = (int) ((start.a * (1 - Dist)) + (end.a * Dist));
+        float newX = Smoothing.lerp(Dist, start.x, end.x);
+//        float newX = ((start.x * (1 - Dist)) + (end.x * Dist));
+        float newY = Smoothing.lerp(Dist, start.y, end.y);
+//        float newY = ((start.y * (1 - Dist)) + (end.y * Dist));
+        float newZ = Smoothing.lerp(Dist, start.z, end.z);
+//        float newZ = ((start.z * (1 - Dist)) + (end.z * Dist));
+        int newR = (int) Smoothing.lerp(Dist, start.r, end.r);
+//        int newR = (int) ((start.r * (1 - Dist)) + (end.r * Dist));
+        int newG = (int) Smoothing.lerp(Dist, start.g, end.g);
+//        int newG = (int) ((start.g * (1 - Dist)) + (end.g * Dist));
+        int newB = (int) Smoothing.lerp(Dist, start.b, end.b);
+//        int newB = (int) ((start.b * (1 - Dist)) + (end.b * Dist));
+        int newA = (int) Smoothing.lerp(Dist, start.a, end.a);
+//        int newA = (int) ((start.a * (1 - Dist)) + (end.a * Dist));
         return new Pixel3D(newX, newY, newZ, newR, newG, newB, newA);
     }
 
