@@ -1,6 +1,7 @@
 package TLangFunctional.Functional.Readers;
 
 import Editor.Main;
+import TLangFunctional.Functional.Core.Class.Class;
 import TLangFunctional.Functional.Debug.Log.LogLevel;
 import TLangFunctional.Functional.Utils.Interface.TLangExtendable;
 
@@ -22,9 +23,22 @@ public class Reader implements TLangExtendable {
 		isJar = (path.toString().endsWith(".jar"));
 	}
 	
+	public Class clazz = null;
+	
+	@Override
+	public Class getInstance() {
+		return clazz;
+	}
+	
+	@Override
+	public Class setInstance(Class clazz) {
+		this.clazz = clazz;
+		return clazz;
+	}
+	
 	public ArrayList<String[]> getAllFiles() {
 		try {
-			return (ArrayList<String[]>) TLangExtendable.execute("getAllFiles", new Object[]{}, new String[]{}, this.getClass());
+			return (ArrayList<String[]>) TLangExtendable.execute("getAllFiles", new Object[]{}, new String[]{}, this);
 		} catch (Exception ignored) {
 			ArrayList<String[]> toReturn = new ArrayList<>();
 			try {
