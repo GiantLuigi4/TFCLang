@@ -2,6 +2,7 @@ package TLangFunctional.Functional.Core.Class;
 
 import TLangFunctional.Errors.IllegalClassMergeException;
 import TLangFunctional.Functional.ClassContext.CustomClasses;
+import TLangFunctional.Functional.Core.Script.Method;
 import TLangFunctional.Functional.Debug.Log.Log;
 import TLangFunctional.Functional.Utils.VariableFinder;
 
@@ -9,16 +10,16 @@ import java.util.ArrayList;
 
 public class Class {
     public boolean isJavaNative = false;
-    protected Method[] methods;
-    protected Method[] staticMethods;
-    protected java.lang.Class javaClassIfPresent;
-    protected Variable[] vars;
-    protected Variable[] staticVars;
-    protected String name;
-    protected Package pack;
-    protected Class[] inheritance;
-    protected String castedFrom = "";
-    protected ArrayList<Import> imports;
+    public Method[] methods;
+    public Method[] staticMethods;
+    public java.lang.Class javaClassIfPresent;
+    public Variable[] vars;
+    public Variable[] staticVars;
+    public String name;
+    public Package pack;
+    public Class[] inheritance;
+    public String castedFrom = "";
+    public ArrayList<Import> imports;
 
     public Class(boolean isJavaNative, Method[] methods, Method[] staticMethods, java.lang.Class javaClassIfPresent, Variable[] vars, Variable[] staticVars, String name, Package pack) {
         this.isJavaNative = isJavaNative;

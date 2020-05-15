@@ -1,0 +1,9 @@
+package:tlang.display
+
+~java.awt
+import:Graphics
+~TLangJava.Extendable
+import:TWindowJavaBase
+public class TWindow : TWindowJavaBase {
+    void Draw(Graphics g);
+}

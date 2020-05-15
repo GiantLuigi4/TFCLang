@@ -1,0 +1,10 @@
+package:test
+~tlang.display
+import:TWindow
+import:Color
+public class testClass : TWindow {
+    void Draw(Graphics g) {
+        g.setColor(new Color(0,255,0));
+		g.fillRect(0,0,20,20);
+    }
+}

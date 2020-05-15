@@ -14,7 +14,7 @@ public class Graphics3D {
     private float rotationX = 0;
     private float rotationY = 0;
     private Graphics thisGraphics;
-    private static BufferedImage image;
+	private static BufferedImage image;
     private ArrayList<Pixel3D> pixels = new ArrayList<>();
     private ArrayList<Rect3D> rectangles = new ArrayList<>();
     private Pixel3D cam = new Pixel3D(0, 0, 0, 1, 1, 1, 1);

@@ -1,6 +1,7 @@
 package TLangFunctional.Functional.Core.Generic;
 
 public enum Protection {
+    HIDDEN("hidden"),
     PUBLIC("public");
     String level;
 

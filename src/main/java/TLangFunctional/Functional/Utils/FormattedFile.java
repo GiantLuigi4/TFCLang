@@ -24,12 +24,12 @@ public class FormattedFile {
         for (i = 0; i < lines.length; i++) {
             if (!readingClass) {
                 for (Protection prot : Protection.values()) {
-                    if (lines[i].startsWith(prot.toString())) {
+                    if (lines[i].startsWith(prot.toString()) && readingClass) {
                         readingClass = true;
                         newLines1.add(lines[i]);
                     }
                 }
-                if (lines[i].startsWith("class")) {
+                if (lines[i].startsWith("class") && !readingClass) {
                     readingClass = true;
                     newLines1.add(lines[i]);
                 }
@@ -40,12 +40,10 @@ public class FormattedFile {
                 if (!lines[i].contains(";")) {
                     parsingLine += lines[i];
                 } else {
-                    if (lines[i].contains(";")) {
-                        for (String s : lines[i].split(";")) {
-                            parsingLine += s;
-                            newLines1.add(parsingLine);
-                            parsingLine = "";
-                        }
+                    for (String s : lines[i].split(";")) {
+                        parsingLine += s + (s.endsWith(";") ? "" : ";");
+                        newLines1.add(parsingLine.substring(s.startsWith(":") ? 0 : 1));
+                        parsingLine = "";
                     }
                 }
             }
@@ -62,6 +60,9 @@ public class FormattedFile {
                         newLines.add(newLine);
                         newLine = "";
                     }
+                }
+                if (!newLine.equals("")) {
+                    newLines.add(newLine);
                 }
             } else {
                 newLines.add(line);
@@ -80,7 +81,7 @@ public class FormattedFile {
                 if (c2 == '\\') {
                     hitComment = !hitComment;
                 }
-                if (c2 != ' ' && !(hitComment || c2 == '\\')) {
+                if ((c2 != ' ' && c2 != '\t') && !(hitComment || c2 == '\\')) {
                     hitText = true;
                 }
                 if (hitText && !(hitComment || c2 == '\\')) {

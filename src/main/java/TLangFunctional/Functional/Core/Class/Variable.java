@@ -1,5 +1,7 @@
 package TLangFunctional.Functional.Core.Class;
 
+import TLangFunctional.Functional.Core.Script.Method;
+
 import java.util.ArrayList;
 
 public class Variable extends Class {

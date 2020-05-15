@@ -1,8 +1,8 @@
 package TLangFunctional.Functional.Core.Script;
 
 public class GoTo {
-    boolean shouldGoTo = false;
-    int line = 0;
+    public boolean shouldGoTo = false;
+    public int line = 0;
 
     public GoTo() {
     }
