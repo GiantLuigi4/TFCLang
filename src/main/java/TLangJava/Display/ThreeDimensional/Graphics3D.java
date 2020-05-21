@@ -16,7 +16,7 @@ public class Graphics3D {
     private Graphics thisGraphics;
 	private static BufferedImage image;
     private ArrayList<Pixel3D> pixels = new ArrayList<>();
-    private ArrayList<Rect3D> rectangles = new ArrayList<>();
+    private ArrayList<Rect3D> shapes = new ArrayList<>();
     private Pixel3D cam = new Pixel3D(0, 0, 0, 1, 1, 1, 1);
     private RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     
@@ -37,8 +37,8 @@ public class Graphics3D {
         Draw(thisGraphics);
     }
     
-    public void addRect(Rect3D rect) {
-        rectangles.add(rect);
+    public void addShape(Rect3D rect) {
+        shapes.add(rect);
     }
     
     private int draw(Graphics g, int i) {
@@ -82,7 +82,7 @@ public class Graphics3D {
             pixels.set(i, pixels.get(i).rotateX(cam, rotationX));
 //            pixels.set(i, Pixel3D.getPixelFromOffset(pixels.get(i), cam));
         }
-        for (Rect3D rect : rectangles) {
+        for (Rect3D rect : shapes) {
             rect.rotateX(cam, rotationX);
             rect.addToList(pixels);
 //            pixels.addAll(rect.pixels);
@@ -115,7 +115,7 @@ public class Graphics3D {
 //                } catch (Exception err) {}
 //            }
 //        }
-        
+
 //        ((Graphics2D) g).translate(offX,offY);
 //        ((Graphics2D) g).translate((-image.getWidth()/2)*scaleX,(-image.getHeight()/2)*scaleY);
 //        ((Graphics2D) g).scale(scaleX,scaleY);

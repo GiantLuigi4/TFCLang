@@ -18,6 +18,7 @@ public class ThreeDDisplayTest extends JComponent {
 	public static void main(String[] args) {
 		Trig.prepMemoryCos(0.01f);
 		Trig.prepMemorySin(0.01f);
+		Trig.prepMemoryAtan2(0.01f);
 		ThreeDDisplayTest displayTest = new ThreeDDisplayTest();
 		frame.add(displayTest);
 		frame.setSize(300, 300);
@@ -76,7 +77,7 @@ public class ThreeDDisplayTest extends JComponent {
 			}
 			Graphics3D G3D = new Graphics3D(g, frame.getWidth(), frame.getHeight());
 //		G3D.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-			G3D.addRect(new Rect3D(
+			G3D.addShape(new Rect3D(
 					new Line3D(
 							new Pixel3D(-10, 0, 10, 255, 0, 0, 255),
 							new Pixel3D(10, 0, 10, 255, 0, 0, 255)
@@ -86,7 +87,7 @@ public class ThreeDDisplayTest extends JComponent {
 							new Pixel3D(10, 15, 10, 0, 255, 0, 255)
 					)
 			));
-			G3D.addRect(new Rect3D(
+			G3D.addShape(new Rect3D(
 					new Line3D(
 							new Pixel3D(10, 0, -10, 255, 255, 0, 255),
 							new Pixel3D(-10, 0, -10, 255, 255, 0, 255)
@@ -96,7 +97,7 @@ public class ThreeDDisplayTest extends JComponent {
 							new Pixel3D(-10, 15, -10, 0, 255, 255, 255)
 					)
 			));
-			G3D.addRect(new TexturedRect3D(
+			G3D.addShape(new TexturedRect3D(
 					new Line3D(
 							new Pixel3D(10, 0, -10, 0, 0, 255, 255),
 							new Pixel3D(-10, 0, -10, 0, 0, 255, 255)

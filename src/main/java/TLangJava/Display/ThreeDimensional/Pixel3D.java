@@ -69,7 +69,7 @@ public class Pixel3D extends Pixel {
 		this.x -= origin.x;
 		this.y -= origin.y;
 		this.z -= origin.z;
-		float rot = (float) Math.atan2(this.x, this.z) + x;
+		float rot = (float) Trig.atan2(this.x, this.z, true) + x;
 		float offset = (float) Math.sqrt(this.x * this.x + this.z * this.z);
 		this.x = (float) (Trig.cos(rot, false) * offset) + origin.x;
 		this.y += origin.y;
@@ -78,14 +78,14 @@ public class Pixel3D extends Pixel {
 	}
 	
 	public Pixel3D rotateY(Pixel3D origin, float y) {
-		this.x -= origin.x;
-		this.y -= origin.y;
-		this.z -= origin.z;
-		float rot = (float) Math.atan2(this.y, this.z) + y;
-		float offset = (float) Math.sqrt(this.y * this.y + this.z * this.z);
-		this.x += origin.x;
-		this.y = (float) (Trig.sin(rot, false) * offset) + origin.y;
-		this.z = (float) (Trig.cos(rot, false) * offset) + origin.z;
+//		this.x -= origin.x;
+//		this.y -= origin.y;
+//		this.z -= origin.z;
+//		float rot = (float) Trig.atan2(this.y, this.z, false) + y;
+//		float offset = (float) Math.sqrt(this.y * this.y + this.z * this.z);
+//		this.x += origin.x;
+//		this.y = (float) (Trig.sin(rot, false) * offset) + origin.y;
+//		this.z = (float) (Trig.cos(rot, false) * offset) + origin.z;
 		return this;
 	}
 	

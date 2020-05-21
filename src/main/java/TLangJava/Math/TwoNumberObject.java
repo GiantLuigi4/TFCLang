@@ -10,11 +10,15 @@ public class TwoNumberObject {
 	}
 	
 	@Override
+	public String toString() {
+		return "TwoNumberObject{" +
+				"i1=" + i1 +
+				", i2=" + i2 +
+				'}';
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof TwoNumberObject) {
-			TwoNumberObject other = (TwoNumberObject) obj;
-			return (((other.i1 == i1) && (other.i2 == i2)));
-		}
-		return super.equals(obj);
+		return this.toString().equals(obj.toString());
 	}
 }
